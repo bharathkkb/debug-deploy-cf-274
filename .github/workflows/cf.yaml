@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+    
+
+jobs:
+  api_metadata_ingestion:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - id: auth
+        name: Authenticate
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - id: deploy
+        name: Deploy
+        uses: google-github-actions/deploy-cloud-functions@v0
+        with:
+          name: sld-api-ingestion
+          region: us-central1
+          build_environment_variables: GOOGLE_FUNCTION_SOURCE=api_metadata_ingestion.py
+          timeout: 540
+          runtime: python38
+          entry_point: sld_api_ingestion
