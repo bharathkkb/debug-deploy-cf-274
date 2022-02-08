@@ -23,7 +23,7 @@ jobs:
         with:
           name: sld-api-ingestion
           region: us-central1
-          build_environment_variables: GOOGLE_FUNCTION_SOURCE=api_metadata_ingestion.py
+          build_environment_variables: GOOGLE_FUNCTION_SOURCE=api_metadata_ingestion-dup.py
           timeout: 540
           runtime: python38
-          entry_point: sld_api_ingestion
+          entry_point: sld_api_ingestion2
